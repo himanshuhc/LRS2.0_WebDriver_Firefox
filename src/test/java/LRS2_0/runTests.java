@@ -13,8 +13,10 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -98,115 +100,114 @@ public class runTests
 			}
 			else if (browserName.equals("Chrome"))
 			{
-				// File file = new File("driversWindows/chromedriver.exe");
-				// System.setProperty( "webdriver.chrome.driver",
-				// file.getAbsolutePath());
-
-				// DesiredCapabilities capabilities =
-				// DesiredCapabilities.chrome();
-				// DesiredCapabilities.chrome();
-				// ChromeOptions options = new ChromeOptions();
-				// options.addArguments("test-type");
-				// capabilities.setCapability(ChromeOptions.CAPABILITY,
-				// options);
-				// driver = new ChromeDriver(capabilities);
-
-				/************
-				 * Grid setup
-				 */
-				System.out.println("IN CHROME!!!!");
 				File file = new File("driversWindows/chromedriver.exe");
 				System.setProperty(	"webdriver.chrome.driver",
 									file.getAbsolutePath());
 
-				threadDriver = new ThreadLocal<RemoteWebDriver>();
-
-				DesiredCapabilities dc = DesiredCapabilities.chrome();
+				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+				DesiredCapabilities.chrome();
 				ChromeOptions options = new ChromeOptions();
-				// options.addArguments("test-type");
-				// dc.set("browSerName", "PhantomJS");
-				// dc.setCapability("browserName", "PhantomJS");
-				dc.setBrowserName("PhantomJS");
-				dc.setCapability("driverName", "ghostdriver");
+				options.addArguments("test-type");
+				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+				driver = new ChromeDriver(capabilities);
 
-				// dc.setPlatform(Platform.WINDOWS);
-				// dc.setBrowserName("chrome");
-
-				// dc.setBrowserName(DesiredCapabilities.chrome().getBrowserName());
-				// dc.setPlatform(DesiredCapabilities.chrome().getPlatform());
-				// dc.setVersion(DesiredCapabilities.chrome().getVersion());
-				try
-				{
-					threadDriver.set(new RemoteWebDriver(
-															new URL(
-																	"http://localhost:4444/wd/hub"),
-															dc));
-				}
-				catch (MalformedURLException e)
-				{
-					e.printStackTrace();
-				}
-
-				driver = threadDriver.get();
-				/*****
-				 * Setup done
+				/************
+				 * Grid setup
 				 */
+				// System.out.println("IN CHROME!!!!");
+				// File file = new File("driversWindows/chromedriver.exe");
+				// System.setProperty( "webdriver.chrome.driver",
+				// file.getAbsolutePath());
+				//
+				// threadDriver = new ThreadLocal<RemoteWebDriver>();
+				//
+				// DesiredCapabilities dc = DesiredCapabilities.chrome();
+				// ChromeOptions options = new ChromeOptions();
+				// // options.addArguments("test-type");
+				// // dc.set("browSerName", "PhantomJS");
+				// // dc.setCapability("browserName", "PhantomJS");
+				// dc.setBrowserName("PhantomJS");
+				// dc.setCapability("driverName", "ghostdriver");
+				//
+				// // dc.setPlatform(Platform.WINDOWS);
+				// // dc.setBrowserName("chrome");
+				//
+				// //
+				// dc.setBrowserName(DesiredCapabilities.chrome().getBrowserName());
+				// //
+				// dc.setPlatform(DesiredCapabilities.chrome().getPlatform());
+				// // dc.setVersion(DesiredCapabilities.chrome().getVersion());
+				// try
+				// {
+				// threadDriver.set(new RemoteWebDriver(
+				// new URL(
+				// "http://localhost:4444/wd/hub"),
+				// dc));
+				// }
+				// catch (MalformedURLException e)
+				// {
+				// e.printStackTrace();
+				// }
+				//
+				// driver = threadDriver.get();
+				// /*****
+				// * Setup done
+				// */
 
 			}
 			else
 			// IE
 			{
-				// File file = new File("driversWindows/IEDriverServer_32.exe");
-				// System.setProperty( "webdriver.ie.driver",
-				// file.getAbsolutePath());
-				//
-				// DesiredCapabilities caps =
-				// DesiredCapabilities.internetExplorer();
-				// caps.setCapability(
-				// InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
-				// true);
-				// driver = new InternetExplorerDriver(caps);
+				File file = new File("driversWindows/IEDriverServer_32.exe");
+				System.setProperty(	"webdriver.ie.driver",
+									file.getAbsolutePath());
+
+				DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
+				caps.setCapability(	InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
+									true);
+				driver = new InternetExplorerDriver(caps);
 
 				/************
 				 * Grid setup
 				 */
 
-				File file = new File("driversWindows/IEDriverServer_32.exe");
-				System.setProperty(	"webdriver.ie.driver",
-									file.getAbsolutePath());
-
-				threadDriver = new ThreadLocal<RemoteWebDriver>();
-
-				DesiredCapabilities dc = DesiredCapabilities.internetExplorer();
-
-				// dc.setBrowserName(DesiredCapabilities.internetExplorer()
-				// .getBrowserName());
-				// dc.setPlatform(DesiredCapabilities.internetExplorer()
-				// .getPlatform());
-				// dc.setVersion(DesiredCapabilities.internetExplorer()
-				// .getVersion());
-				try
-				{
-					threadDriver.set(new RemoteWebDriver(
-															new URL(
-																	"http://192.168.7.200:4444/wd/hub"),
-															dc));
-				}
-				catch (MalformedURLException e)
-				{
-					System.out.println("Exception caught here in IE catch!");
-					e.printStackTrace();
-				}
-				catch (Exception ex)
-				{
-					System.out.println("IE remoteDriver creation threw exception!!");
-					ex.printStackTrace();
-				}
-
-				driver = threadDriver.get();
-				/*****
-				 * Setup done
-				 */
+				// File file = new File("driversWindows/IEDriverServer_32.exe");
+				// System.setProperty( "webdriver.ie.driver",
+				// file.getAbsolutePath());
+				//
+				// threadDriver = new ThreadLocal<RemoteWebDriver>();
+				//
+				// DesiredCapabilities dc =
+				// DesiredCapabilities.internetExplorer();
+				//
+				// // dc.setBrowserName(DesiredCapabilities.internetExplorer()
+				// // .getBrowserName());
+				// // dc.setPlatform(DesiredCapabilities.internetExplorer()
+				// // .getPlatform());
+				// // dc.setVersion(DesiredCapabilities.internetExplorer()
+				// // .getVersion());
+				// try
+				// {
+				// threadDriver.set(new RemoteWebDriver(
+				// new URL(
+				// "http://192.168.7.200:4444/wd/hub"),
+				// dc));
+				// }
+				// catch (MalformedURLException e)
+				// {
+				// System.out.println("Exception caught here in IE catch!");
+				// e.printStackTrace();
+				// }
+				// catch (Exception ex)
+				// {
+				// System.out.println("IE remoteDriver creation threw exception!!");
+				// ex.printStackTrace();
+				// }
+				//
+				// driver = threadDriver.get();
+				// /*****
+				// * Setup done
+				// */
 			}
 		}
 		else
