@@ -509,8 +509,7 @@ public class helperFunctions
 		waitForElementToBeVisible(bySearchBox, read.getshortWaitTime(), true);
 		typeText(bySearchBox, itemToSearch);
 		typeText(driver.findElement(bySearchBox), Keys.ENTER);
-		// click(By.xpath("//div[@class='mdMasterNode']//div[starts-with(text(),'"
-		// + itemToSearch + "')]"));
+
 		waitForAjaxRefresh();
 	}
 
@@ -1221,7 +1220,7 @@ public class helperFunctions
 	public static void editUserPermissionsForLocation()
 	{
 		goToUsersTab();
-		searchForItemInLeftPane(read.getGeneralUserCompanyName("user2"));
+		searchForItemInLeftPane(read.getGeneralUserCompanyName("user1"));
 
 		List<WebElement> locPermissionDropDown;
 		locPermissionDropDown = driver.findElements(By.cssSelector("select.permission"));
@@ -1905,11 +1904,11 @@ public class helperFunctions
 		Assert.assertTrue(helperFunctions.waitForElementToExist(By.xpath("//*[@id='selectedProduct']"),
 																read.getveryShortWaitTime(),
 																true));
-		switchProductThroughTopMenu("Explore LRS Products");
-		waitForAjaxRefresh();
-		Assert.assertTrue(helperFunctions.waitForElementToExist(By.xpath("//*[@id='selectedProduct']"),
-																read.getveryShortWaitTime(),
-																true));
+		// switchProductThroughTopMenu("Explore LRS Products");
+		// waitForAjaxRefresh();
+		// Assert.assertTrue(helperFunctions.waitForElementToExist(By.xpath("//*[@id='selectedProduct']"),
+		// read.getveryShortWaitTime(),
+		// true));
 		switchProductThroughTopMenu("Table Tracker");
 		waitForAjaxRefresh();
 		Assert.assertTrue(helperFunctions.waitForElementToExist(By.id("users"),

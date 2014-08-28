@@ -1,8 +1,6 @@
 package LRS2_0;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -10,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,6 +18,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -218,124 +219,122 @@ public class runTests
 
 			if (browserName.equals("Chrome"))
 			{
-				// File file = new File("driversMac/chromedriver");
-				// System.setProperty( "webdriver.chrome.driver",
-				// file.getAbsolutePath());
-				//
-				// DesiredCapabilities capabilities =
-				// DesiredCapabilities.chrome();
-				// capabilities.setCapability( "chrome.switches",
-				// Arrays.asList("--start-maximized"));
-				// ChromeOptions options = new ChromeOptions();
-				// options.addArguments("test-type");
-				// capabilities.setCapability(ChromeOptions.CAPABILITY,
-				// options);
-				// driver = new ChromeDriver(capabilities);
+				File file = new File("driversMac/chromedriver");
+				System.setProperty(	"webdriver.chrome.driver",
+									file.getAbsolutePath());
+
+				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+				capabilities.setCapability(	"chrome.switches",
+											Arrays.asList("--start-maximized"));
+				ChromeOptions options = new ChromeOptions();
+				options.addArguments("test-type");
+				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+				driver = new ChromeDriver(capabilities);
 
 				/************
 				 * Grid setup
 				 */
 
-				// File file = new File("driversMac/chromedriver");
-				File file = new File("/Users/chromedriver");
-				System.setProperty(	"webdriver.chrome.driver",
-									file.getAbsolutePath());
-
-				threadDriver = new ThreadLocal<RemoteWebDriver>();
-
-				DesiredCapabilities dc = DesiredCapabilities.chrome();
-				// ChromeOptions options = new ChromeOptions();
-				// options.addArguments("test-type");
-				// dc.setCapability(ChromeOptions.CAPABILITY, options);
-				// dc.setPlatform(Platform.WINDOWS);
-				// dc.setBrowserName("chrome");
-
-				dc.setBrowserName(DesiredCapabilities.chrome().getBrowserName());
-				dc.setPlatform(DesiredCapabilities.chrome().getPlatform());
-				dc.setVersion(DesiredCapabilities.chrome().getVersion());
-				try
-				{
-					threadDriver.set(new RemoteWebDriver(
-															new URL(
-																	"http://192.168.7.200:4444/wd/hub"),
-															dc));
-				}
-				catch (MalformedURLException e)
-				{
-					e.printStackTrace();
-				}
-
-				driver = threadDriver.get();
-				/*****
-				 * Setup done
-				 */
+				//
+				// File file = new File("/Users/chromedriver");
+				// System.setProperty( "webdriver.chrome.driver",
+				// file.getAbsolutePath());
+				//
+				// threadDriver = new ThreadLocal<RemoteWebDriver>();
+				//
+				// DesiredCapabilities dc = DesiredCapabilities.chrome();
+				// // ChromeOptions options = new ChromeOptions();
+				// // options.addArguments("test-type");
+				// // dc.setCapability(ChromeOptions.CAPABILITY, options);
+				// // dc.setPlatform(Platform.WINDOWS);
+				// // dc.setBrowserName("chrome");
+				//
+				// dc.setBrowserName(DesiredCapabilities.chrome().getBrowserName());
+				// dc.setPlatform(DesiredCapabilities.chrome().getPlatform());
+				// dc.setVersion(DesiredCapabilities.chrome().getVersion());
+				// try
+				// {
+				// threadDriver.set(new RemoteWebDriver(
+				// new URL(
+				// "http://192.168.7.200:4444/wd/hub"),
+				// dc));
+				// }
+				// catch (MalformedURLException e)
+				// {
+				// e.printStackTrace();
+				// }
+				//
+				// driver = threadDriver.get();
+				// /*****
+				// * Setup done
+				// */
 
 			}
 			else
 			{
-				// SafariOptions capa = new SafariOptions();
-				// capa.setSkipExtensionInstallation(true);
-				// driver = new SafariDriver(capa);
+				SafariOptions capa = new SafariOptions();
+				capa.setSkipExtensionInstallation(true);
+				driver = new SafariDriver(capa);
 
-				// DesiredCapabilities dc = DesiredCapabilities.safari();
-				// SafariOptions safariOptions = new SafariOptions();
-				// safariOptions.setUseCleanSession(true);
-				// dc.setCapability(SafariOptions.CAPABILITY, safariOptions);
-				// dc.setPlatform(Platform.MAC);
-				// driver = new SafariDriver(dc);
-				//
+				DesiredCapabilities dc = DesiredCapabilities.safari();
+				SafariOptions safariOptions = new SafariOptions();
+				safariOptions.setUseCleanSession(true);
+				dc.setCapability(SafariOptions.CAPABILITY, safariOptions);
+				dc.setPlatform(Platform.MAC);
+				driver = new SafariDriver(dc);
 
 				// safari
-				// driver = new SafariDriver();
+				driver = new SafariDriver();
 
-				// javascriptMax
-				// .executeScript("window.resizeTo('width=window.screen.availWidth,"
-				// + "height=window.screen.availHeight,top=0,left=0')");
+				javascriptMax.executeScript("window.resizeTo('width=window.screen.availWidth,"
+											+ "height=window.screen.availHeight,top=0,left=0')");
 
 				/************
 				 * Grid setup
 				 */
 
-				// File file = new File("driversWindows/chromedriver.exe");
-				// System.setProperty( "webdriver.chrome.driver",
-				// file.getAbsolutePath());
-
-				threadDriver = new ThreadLocal<RemoteWebDriver>();
-
-				DesiredCapabilities dc = DesiredCapabilities.safari();
-
-				System.setProperty("webdriver.safari.noinstall", "true");
-
-				// ChromeOptions options = new ChromeOptions();
-				// options.addArguments("test-type");
-				// dc.setCapability(ChromeOptions.CAPABILITY, options);
-				// dc.setPlatform(Platform.WINDOWS);
-				// dc.setBrowserName("chrome");
-
+				// // File file = new File("driversWindows/chromedriver.exe");
+				// // System.setProperty( "webdriver.chrome.driver",
+				// // file.getAbsolutePath());
+				//
+				// threadDriver = new ThreadLocal<RemoteWebDriver>();
+				//
+				// DesiredCapabilities dc = DesiredCapabilities.safari();
+				//
+				// System.setProperty("webdriver.safari.noinstall", "true");
+				//
+				// // ChromeOptions options = new ChromeOptions();
+				// // options.addArguments("test-type");
+				// // dc.setCapability(ChromeOptions.CAPABILITY, options);
+				// // dc.setPlatform(Platform.WINDOWS);
+				// // dc.setBrowserName("chrome");
+				//
+				// //
 				// dc.setBrowserName(DesiredCapabilities.chrome().getBrowserName());
+				// //
 				// dc.setPlatform(DesiredCapabilities.chrome().getPlatform());
-				// dc.setVersion(DesiredCapabilities.chrome().getVersion());
-				try
-				{
-					threadDriver.set(new RemoteWebDriver(
-															new URL(
-																	"http://192.168.7.200:4444/wd/hub"),
-															dc));
-				}
-				catch (MalformedURLException e)
-				{
-					e.printStackTrace();
-				}
-				catch (Exception ex)
-				{
-					System.out.println("Safari Exception Caught...");
-					ex.printStackTrace();
-				}
-
-				driver = threadDriver.get();
-				/*****
-				 * Setup done
-				 */
+				// // dc.setVersion(DesiredCapabilities.chrome().getVersion());
+				// try
+				// {
+				// threadDriver.set(new RemoteWebDriver(
+				// new URL(
+				// "http://192.168.7.200:4444/wd/hub"),
+				// dc));
+				// }
+				// catch (MalformedURLException e)
+				// {
+				// e.printStackTrace();
+				// }
+				// catch (Exception ex)
+				// {
+				// System.out.println("Safari Exception Caught...");
+				// ex.printStackTrace();
+				// }
+				//
+				// driver = threadDriver.get();
+				// /*****
+				// * Setup done
+				// */
 
 			}
 
@@ -567,8 +566,7 @@ public class runTests
 		System.out.print("WEB-1260, WEB-1267" + "\n");
 		Reporter.log("WEB-1260, WEB-1267" + "<br>");
 		helperFunctions.login("user1");
-		// admin.login();
-		// uncomment this later after GUI is stable
+
 		Assert.assertTrue(helperFunctions.waitForElementToExist(By.xpath("//*[contains(text(),'You own this account')]"),
 																read.getlongWaitTime(),
 																true));
@@ -633,6 +631,7 @@ public class runTests
 
 		System.out.print("WEB-1262" + "\n");
 		Reporter.log("WEB-1262" + "<br>");
+
 		// using Account Owner
 		accOwner.login();
 		helperFunctions.clickOnProductOnMainScreen("On Cue");
@@ -724,11 +723,11 @@ public class runTests
 																	read.getveryShortWaitTime(),
 																	true));
 
-		helperFunctions.switchProductThroughTopMenu("Explore LRS Products");
-		Assert.assertTrue(helperFunctions.waitForElementToExist(By.xpath("//div[(contains(@class,'mdDetailHeaderLabel')) and "
-																			+ "(contains(text(),'Explore Our Products'))]"),
-																read.getmediumWaitTime(),
-																true));
+		// helperFunctions.switchProductThroughTopMenu("Explore LRS Products");
+		// Assert.assertTrue(helperFunctions.waitForElementToExist(By.xpath("//div[(contains(@class,'mdDetailHeaderLabel')) and "
+		// + "(contains(text(),'Explore Our Products'))]"),
+		// read.getmediumWaitTime(),
+		// true));
 
 	}
 
@@ -1434,7 +1433,7 @@ public class runTests
 									.getText();
 		Reporter.log("Text of Pop-Up" + PasswordText + "<br>");
 		Assert.assertEquals(PasswordText,
-							"An email has been to sent to the Account Owner with reset password instructions.");
+							"An email has been sent to the Account Owner with reset password instructions.");
 		helperFunctions.waitForAjaxRefresh();
 		helperFunctions.click(By.xpath("//button[@data-dismiss='modal']"));
 		// For Check Point
@@ -1454,7 +1453,7 @@ public class runTests
 										.getText();
 		Reporter.log("Text of Pop-Up" + PasswordText + "<br>");
 		Assert.assertEquals(PasswordText1,
-							"An email has been to sent to the Account Owner with reset password instructions.");
+							"An email has been sent to the Account Owner with reset password instructions.");
 		helperFunctions.waitForAjaxRefresh();
 		helperFunctions.click(By.xpath("//button[@data-dismiss='modal']"));
 		// For On Cue Restaurant
@@ -1474,7 +1473,7 @@ public class runTests
 										.getText();
 		Reporter.log("Text of Pop-Up" + PasswordText + "<br>");
 		Assert.assertEquals(PasswordText2,
-							"An email has been to sent to the Account Owner with reset password instructions.");
+							"An email has been sent to the Account Owner with reset password instructions.");
 		helperFunctions.waitForAjaxRefresh();
 		helperFunctions.click(By.xpath("//button[@data-dismiss='modal']"));
 
@@ -1612,7 +1611,7 @@ public class runTests
 	{
 		System.out.print("WEB-1287" + "\n");
 		Reporter.log("WEB-1287" + "<br>");
-		// admin.login();
+
 		helperFunctions.login("user1");
 
 		helperFunctions.clickOnProductOnMainScreen("Table Tracker");
@@ -1727,7 +1726,7 @@ public class runTests
 		String errorMessage = driver.findElement(	By.cssSelector("input.input-block-level.textBox.invalid.error.errorBox"))
 									.getAttribute("value");
 		Assert.assertEquals(errorMessage,
-							"This user has already been added to this product");
+							"The user is already an owner for another account.");
 
 		// LogOut
 		helperFunctions.signOut();
@@ -1781,7 +1780,7 @@ public class runTests
 		String errorMessage1 = driver.findElement(	By.cssSelector("input.input-block-level.textBox.invalid.error.errorBox"))
 										.getAttribute("value");
 		Assert.assertEquals(errorMessage1,
-							"This user has already been added to this product");
+							"The user is already an owner for another account.");
 
 	}
 
@@ -1795,27 +1794,30 @@ public class runTests
 		System.out.print("WEB-2164" + "\n");
 		Reporter.log("WEB-2164" + "<br>");
 		superadmin.login();
+
 		// Clicking on Customer Support User
+
 		helperFunctions.click(By.id("lrsadminUsers"));
 		helperFunctions.waitForAjaxRefresh();
 
-		// helperFunctions.scrollToBottom();
-		List<WebElement> allAccountsList;
-		allAccountsList = driver.findElements(By.id("mdMasterListItems"));
+		// List<WebElement> allAccountsList;
+		// allAccountsList = driver.findElements(By.id("mdMasterListItems"));
 
-		for (int i = 1; i <= allAccountsList.size(); i++)
-		{
-
-			helperFunctions.click(By.xpath("//*[@id='mdMasterListItems']/div["
-											+ i + "]/div"));
-			String UserNameHeading = driver.findElement(By.cssSelector("div.mdDetailHeaderLabel.name"))
-											.getText();
-			String UserNameLeftPanel = driver.findElement(	By.xpath("//*[@id='mdMasterListItems']/div["
-																		+ i
-																		+ "]/div/div[1]"))
-												.getText();
-			Assert.assertEquals(UserNameHeading, UserNameLeftPanel);
-		}
+		// for (int i = 1; i <= allAccountsList.size(); i++)
+		// {
+		//
+		// helperFunctions.click(By.xpath("//*[@id='mdMasterListItems']/div["
+		// + i + "]/div"));
+		// String UserNameHeading =
+		// driver.findElement(By.cssSelector("div.mdDetailHeaderLabel.name"))
+		// .getText();
+		// String UserNameLeftPanel = driver.findElement(
+		// By.xpath("//*[@id='mdMasterListItems']/div["
+		// + i
+		// + "]/div/div[1]"))
+		// .getText();
+		// Assert.assertEquals(UserNameHeading, UserNameLeftPanel);
+		// }
 
 		// Clicking on Customer Support Users
 
@@ -1844,7 +1846,6 @@ public class runTests
 
 		Assert.assertEquals(EmailRequiredText, "Email Address is required");
 
-		// helperFunctions.click(By.cssSelector("td.mdDetailInputValue.error"));
 		driver.findElement(	By.cssSelector("input.input-block-level.textBox.invalid.error.errorBox"))
 				.clear();
 
@@ -1973,7 +1974,7 @@ public class runTests
 
 		try
 		{
-			helperFunctions.signOut();
+			// helperFunctions.signOut();
 		}
 		catch (Exception e)
 		{
@@ -2003,9 +2004,9 @@ public class runTests
 	public void cleanSuite()
 	{
 		// Reporter.log("inside @AfterSuite" + "<br>");
-		driver.close();
-		driver.quit();
-		driver = null;
+		// driver.close();
+		// driver.quit();
+		// driver = null;
 		// Reporter.log("---------------------------------------------------------------------------------"
 		// + "<br>");
 	}
