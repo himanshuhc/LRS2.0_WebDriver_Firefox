@@ -272,7 +272,7 @@ public class runTests
 			}
 			else
 			{
-				SafariOptions capa = new SafariOptions();
+				/* SafariOptions capa = new SafariOptions();
 				capa.setSkipExtensionInstallation(true);
 				driver = new SafariDriver(capa);
 
@@ -281,14 +281,14 @@ public class runTests
 				safariOptions.setUseCleanSession(true);
 				dc.setCapability(SafariOptions.CAPABILITY, safariOptions);
 				dc.setPlatform(Platform.MAC);
-				driver = new SafariDriver(dc);
+				driver = new SafariDriver(dc); */
 
 				// safari
 				driver = new SafariDriver();
 
-				javascriptMax.executeScript("window.resizeTo('width=window.screen.availWidth,"
+				/* javascriptMax.executeScript("window.resizeTo('width=window.screen.availWidth,"
 											+ "height=window.screen.availHeight,top=0,left=0')");
-
+ */
 				/************
 				 * Grid setup
 				 */
@@ -339,11 +339,11 @@ public class runTests
 			}
 
 		}
-		System.out.println("..1");
+		// System.out.println("..1");
 		driver.manage().window().maximize();
-		System.out.println("..2");
+		// System.out.println("..2");
 		driver.manage().timeouts().implicitlyWait(14, TimeUnit.SECONDS);
-		System.out.println("..3");
+		// System.out.println("..3");
 
 		superadmin = new Superadmin();
 		admin = new LRSAdmin();
